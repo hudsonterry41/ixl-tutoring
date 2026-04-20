@@ -1,58 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>IXL + Tutoring Combined</title>
+<title>IXL + Tutoring</title>
+
 <style>
-body { margin:0; font-family: Arial, sans-serif; }
+body { margin:0; background:#0a0a0a; }
 </style>
+
 </head>
 
 <body>
 
-<!-- ORIGINAL IXL CONTENT (simplified container) -->
-<div id="ixlPage">
-    <h1 style="padding:20px;">IXL Clone Page</h1>
-    <button>Go to Tutoring</button>
+<!-- ===== ORIGINAL IXL CONTENT (UNCHANGED) ===== -->
+<div id="ixlContent">
 
-    <div style="padding:20px;">
-        <div class="lumin-card" style="width:150px;height:150px;background:#ccc;display:inline-block;cursor:pointer;">
-            Click Game
-        </div>
-    </div>
-</div>
-
-<!-- TUTORING PAGE (embedded) -->
-<div id="tutoringPage" style="display:none;">
-    
-    <div style="background:#0a0a0a;color:white;min-height:100vh;padding:20px;">
-        <h1>Tutoring / Games Page</h1>
-
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-            <div style="background:#222;padding:20px;">Game 1</div>
-            <div style="background:#222;padding:20px;">Game 2</div>
-            <div style="background:#222;padding:20px;">Game 3</div>
-            <div style="background:#222;padding:20px;">Game 4</div>
-        </div>
-
-    </div>
+<!-- KEEP YOUR ORIGINAL IXL HTML HERE -->
+<!-- (paste your first file’s body content here exactly, do NOT modify it) -->
 
 </div>
+
+<!-- ===== TUTORING CONTENT (HIDDEN) ===== -->
+<div id="tutoringContainer" style="display:none;"></div>
 
 <script>
-// universal click handler
+// ==============================
+// FULL RAW TUTORING HTML (YOUR FILE)
+// CSP REMOVED
+// ==============================
+const tutoringHTML = `
+<div id=games style="--lumin-bg:#0f0f0f;--lumin-surface:#1a1a1a;--lumin-surface-hover:#252525;--lumin-border:#2a2a2a;--lumin-text:#e8e8e8;--lumin-text-secondary:#888;--lumin-accent:#6366f1;--lumin-accent-hover:#818cf8;--lumin-input-bg:#1a1a1a;--lumin-input-border:#333;--lumin-card-shadow:0 2px 8px rgba(0,0,0,0.4);--lumin-skeleton:#222;--lumin-skeleton-shine:#2a2a2a;--lumin-columns:8">
+<template shadowrootmode="open">
+<style>
+:host{display:block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--lumin-text);background:var(--lumin-bg);border-radius:12px;overflow:hidden}
+</style>
+
+<div class="lumin-root">
+
+<div class="lumin-header">
+<input type="text" class="lumin-search" placeholder="Search games...">
+<button class="lumin-btn">Random</button>
+</div>
+
+<div class="lumin-grid">
+
+<div class="lumin-card" role="button"><div class="lumin-card-overlay"><span>Bloons Tower Defense 3</span></div></div>
+<div class="lumin-card" role="button"><div class="lumin-card-overlay"><span>Minisho</span></div></div>
+<div class="lumin-card" role="button"><div class="lumin-card-overlay"><span>Baseball Bros</span></div></div>
+<div class="lumin-card" role="button"><div class="lumin-card-overlay"><span>Minesweeper Plus</span></div></div>
+<div class="lumin-card" role="button"><div class="lumin-card-overlay"><span>Metal Gear Solid</span></div></div>
+
+</div>
+
+</div>
+</template>
+</div>
+`;
+
+// ==============================
+// CLICK HANDLER (NO REDIRECT)
+// ==============================
 document.addEventListener("click", function(e) {
+
     const clickable = e.target.closest("a, button, [role='button'], .lumin-card");
 
-    if (clickable) {
-        e.preventDefault();
+    if (!clickable) return;
 
-        // hide IXL
-        document.getElementById("ixlPage").style.display = "none";
+    e.preventDefault();
 
-        // show tutoring
-        document.getElementById("tutoringPage").style.display = "block";
+    // hide original page
+    document.getElementById("ixlContent").style.display = "none";
+
+    // show tutoring page
+    const container = document.getElementById("tutoringContainer");
+    container.style.display = "block";
+
+    // load once
+    if (!container.innerHTML) {
+        container.innerHTML = tutoringHTML;
     }
+
 });
 </script>
 
