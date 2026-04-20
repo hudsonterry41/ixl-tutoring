@@ -1,31 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IXL | Math, Language Arts, Science, Social Studies, and Spanish</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://ca.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/square_og_ixl.png">
-
-  <style>
-    body {
-      margin: 0;
-      background: #0a0a0a;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>IXL + Tutoring Combined</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; }
+</style>
 </head>
-<body>
-  <div id="games"></div>
 
-  <script src="https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js"></script>
-  <script>
-    Lumin.init({
-      container: '#games',
-      theme: 'dark',
-      onReady: () => console.log('LuminSDK is ready'),
-      onError: (err) => console.error('LuminSDK error:', err),
-    });
-  </script>
+<body>
+
+<!-- ORIGINAL IXL CONTENT (simplified container) -->
+<div id="ixlPage">
+    <h1 style="padding:20px;">IXL Clone Page</h1>
+    <button>Go to Tutoring</button>
+
+    <div style="padding:20px;">
+        <div class="lumin-card" style="width:150px;height:150px;background:#ccc;display:inline-block;cursor:pointer;">
+            Click Game
+        </div>
+    </div>
+</div>
+
+<!-- TUTORING PAGE (embedded) -->
+<div id="tutoringPage" style="display:none;">
+    
+    <div style="background:#0a0a0a;color:white;min-height:100vh;padding:20px;">
+        <h1>Tutoring / Games Page</h1>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+            <div style="background:#222;padding:20px;">Game 1</div>
+            <div style="background:#222;padding:20px;">Game 2</div>
+            <div style="background:#222;padding:20px;">Game 3</div>
+            <div style="background:#222;padding:20px;">Game 4</div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+// universal click handler
+document.addEventListener("click", function(e) {
+    const clickable = e.target.closest("a, button, [role='button'], .lumin-card");
+
+    if (clickable) {
+        e.preventDefault();
+
+        // hide IXL
+        document.getElementById("ixlPage").style.display = "none";
+
+        // show tutoring
+        document.getElementById("tutoringPage").style.display = "block";
+    }
+});
+</script>
+
 </body>
 </html>
